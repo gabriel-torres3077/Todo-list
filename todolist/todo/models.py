@@ -1,12 +1,17 @@
 from django.db import models
-from django.utils import timezone
+from django.contrib.auth.models import User
+
 
 # Create your models here.
 
-def Todo():
-    title = models.CharField()
-    description = models.TextField()
-    goal = models.DateTimeField()
-    created = models.DateTimeField(auto_now_add=timezone.now())
-    completed = models.DateTimeField()
+class Todo(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField(blank=True)
+    goal = models.DateField()
+    created = models.DateTimeField(auto_now_add=True)
+    completed = models.DateTimeField(null=True, blank=True)
     important = models.BooleanField(default=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title

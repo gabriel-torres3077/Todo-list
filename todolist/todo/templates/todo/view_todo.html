@@ -1,0 +1,20 @@
+{% extends 'todo/base.html' %}
+{% block content %}
+<H1> Ver minha lista </H1>
+
+{{ todo.title }}
+{{ error }}
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit"> Salvar </button>
+</form>
+
+<form method="POST" action="{% url 'complete_todo' todo.id %}">
+    {% csrf_token %}
+    <button type="submit"> Completar </button>
+</form>
+
+
+{% endblock %}
