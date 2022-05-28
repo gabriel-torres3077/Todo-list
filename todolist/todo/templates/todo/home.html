@@ -1,6 +1,24 @@
-{% extends 'todo/base.html' %}
-{% block content %}
+{% extends "todo/base.html" %}
 
-    Home page
-{{ hora }}
+{% block content %}
+<br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+<div class="row justify-content-center mt-5">
+        <div class="col-md-7 text-center">
+
+                 <h1>Agendador de tarefas</h1>
+            <p>Olá eu sou Gabriel bem vindo ao agendador de tarefas 'todo Woo', esse projeto foi inteiramente desenvolvido com
+            base no Curso do instrutor <a href="https://github.com/zappycode" target="_blank"> Nick Walter</a>, o site tem como objetivo a criação e administração de tarefas definidas pelos usuários,
+             além de apresentar um sistema de cadastro para os mesmos. O projeto foi realizado com o objetivo de testar e por sua vez aprimorar minhas habilidades usando
+                Django, Python e HTML quanto a parte visual o projeto utilizou dos códigos desenvolvidor pelo professor durante o curso.
+            </p>
+            <p> Caso queira ver outros projetos desenvolvidos por mim, acesse meu <a href="https://github.com/gabriel-torres3077?tab=repositories" target="_blank">GitHub</a> </p>
+        <a role="button" class="btn btn-primary btn-lg" href="{% url 'signup_user' %}">Começar</a>
+        </div>
+    </div>
+
 {% endblock %}

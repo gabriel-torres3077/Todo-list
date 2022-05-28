@@ -1,20 +1,50 @@
-{% extends 'todo/base.html' %}
+{% extends "todo/base.html" %}
+
 {% block content %}
-<H1> Ver minha lista </H1>
-
-{{ todo.title }}
-{{ error }}
-
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit"> Salvar </button>
-</form>
-
-<form method="POST" action="{% url 'complete_todo' todo.id %}">
-    {% csrf_token %}
-    <button type="submit"> Completar </button>
-</form>
-
-
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            <h2>Nova tarefa</h2>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" name="title" class="form-control" id="title" value="{{ todo.title }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Descrição</label>
+                    <textarea name="description" rows="5" class="form-control" id="description" >{{ todo.description }}</textarea>
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" name="important" class="form-check-input" id="important" {% if todo.important %}checked{% endif %}>
+                    <label class="form-check-label" for="important">Importante</label>
+                </div>
+                <div class="form-group">
+                    <label for="goal"> Prazo desejado </label>
+                    <input type="date" name="goal" class="form-control" id="goal" value="{{todo.goal|date:'Y-m-d'}}" required>
+                </div><br/>
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <button type="button" class="btn btn-success" onclick="document.getElementById('complete_form').submit()">Terminar</button>
+                <button type="button" class="btn btn-danger" onclick="document.getElementById('delete_form').submit()">Deletar</button>
+            </form>
+        </div>
+    </div>
+    {% if todo.completed is None %}
+        <form style='display: none;' id="complete_form" method="POST" action="{% url 'complete_todo' todo.id %}">
+            {% csrf_token %}
+            <button id="complete" type="submit">Complete</button>
+        </form>
+    {% endif %}
+    <form style='display: none;' id="delete_form" method="POST" action="{% url 'delete_todo' todo.id %}">
+        {% csrf_token %}
+        <button id="delete" type="submit">Delete</button>
+    </form>
 {% endblock %}
